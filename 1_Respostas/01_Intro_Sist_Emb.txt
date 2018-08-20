@@ -1,0 +1,17 @@
+1- Sistemas embarcados são sistemas que possuem em sua composição computadores cujo software  desempenha determinadas funções específica, pré-definida e totalmente dedicadas a aquela "tarefa", apenas. Ou seja, eles se diferenciam dos sistemas operacionais comumente vistos nos computadores que realizam diversas tarefas num modo mais geral.
+
+
+2- Sistemas microprocessados são sistemas constituídos por uma CPU, memorias de dados (RAM) e uma memoria de programa (ROM), além dos periféricos de entrada e saída. Estes "blocos" podem se relacionar de acordo com a arquiteturas diferentes. Sendo assim, o sitema recebe dados e buscar realizar determinadas tarefas em cima destes dados recebidos.
+
+
+3- a) Industria automotiva: som, alarme, janelas...
+
+b) Eletrodomésticos: geladeiras, máquina de lavar roupa, celular...
+
+c) Automação industrial: dispositivos para monitorar dados de determinada máquina, por exemplo.
+
+
+4- Os dois tipos principais de arquitetura para memória são a arquiteteura Harvard e a arquitetura von Neumann. Na arquitetura Harvard, pode-se ler simultaneamente os dados e o programa, uma vez que o barramente de dados e o barramento do programa são separados.Ja na arquitetura von Neumann, esses barramentos não são separados, o que se traduz numa arquitetura mais simples porém menos eficiente.
+
+
+5- Pois, além de ser um microcontrolador com preço mais acessível, o MSP430 possibilita a realização de diversas funcionalidades (como fazer contas com os valores da memória, os registradores servem para diversas finalidades e tem várias possibilidades de periféricos, que são muito úteis para o projeto da disciplina).
