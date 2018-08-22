@@ -1,0 +1,75 @@
+Hashtag: #OitavoSemestre
+
+
+
+Entregas: 
+	Inovação: 
+		03/09: A1
+		01/10: A2 e primeira parcial da A3
+		05/11: segunda parcial A2 e entrega da proposta da A4
+		03/12: entrega do relatório da A4
+
+	Eletrônica Embarcada:
+		05/09: entrega do primeiro ponto de controle
+		21/09: primeiro teste
+		05/10: entrega do segundo ponto de controle
+		19/10: entrega do terceiro ponto de controle
+		31/10: segundo teste
+		16/11: entrega do quarto ponto de controle
+		30/11: entrega do projeto final
+	
+	Sistemas de Controle:
+		17/09: P1
+		26/11: P2
+	
+	Física Moderna:
+		14/09: P1
+		19/10: P2
+		30/11: P3
+	
+	Instrumentação Eletrônica:
+		?: projeto final
+		?: P1
+		?: P2
+
+
+
+Gerente/equipe: Eu
+
+
+
+
+Por que? :
+	- Preciso dos créditos para me formar
+	- Tenho curiosidades sobre a área de embarcados, pois foi algo que me chamou a atenção no início da graduação
+
+
+
+Por que não? :
+	- ?
+
+
+
+Objetivos:
+	- Passar em todas as matérias
+	- Aprender a trabalhar com a área de embarcados e descobrir se eu realmente gosto da área
+	- Readquirir uma rotina de estudos
+
+
+
+Ameaças:
+	- Procrastinação
+	- Matéria acumulada
+	- Matérias com conteúdos de difícil compreensão e que não me atraem (ex.: física moderna)
+	- Outros projetos fora da faculdade que exigem tempo
+
+
+Custos: Possíveis gastos com  materiais para projetos e gasolina para o transporte.
+
+
+
+Requisitos:
+	- Não deixar matéria acumular
+	- Não esquecer dos projetos
+	- Estudar x horas por semana
+	
