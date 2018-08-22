@@ -1,0 +1,21 @@
+1- 
+	O barramento de dados é utilizado para transmitir dados de um local para outro, entre as unidaes do sistema. Já o barramento de endereço é o responsável por definir a origem e o destino do sinal transmitido num dos outros barramentos.
+
+
+
+2- 
+	Memoria RAM permite a leitura e escrita de dados. Por ser uma memória volátil ela perde os dados salvos assim que o sistema é desligado, portanto nela não se slavam programas que cuja perda possa ser catastrófica ao sistema. Ela é usada para armazenar dados ou programas que podem ser convenientemente recarregados para imediato processamento. 
+	Já a memoria ROM permite acesso somente à leitura dos dados após serem escritos. Por ser uma memória não-volátil, é na ROM onde se colocam os programas de controle do sistema, essenciais ao funcionamaneto do sistema, tendo em vista que elas nao se perdem caso o sistema seja desligado.
+
+
+
+3- a)A variável i é armazenada na memoria RAM uma vez que ela não é essencial para o sistema. OU seja, se o sistema for desligado, basta colocar outro valor e o sistema voltará a funcionar. Além disso, a variável i permite a escrita e leitura de dados. 
+
+
+b) O programa também está na memoria RAM, pois tambem pode ser editado a qualquer momento e modificado. Ou seja, permite escrita e leitura de dados.
+
+
+4- 
+	
+
+
