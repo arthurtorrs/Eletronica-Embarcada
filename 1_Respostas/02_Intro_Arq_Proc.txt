@@ -16,12 +16,13 @@ b) O programa também está na memoria RAM, pois tambem pode ser editado a qualq
 
 
 4- Von Neumann:
-	Vantagens:
-	Desavntagens:
+	Vantagens: Mais simples
+	Desavntagens: Pelos barramentos nao serem separados, se traduz numa memoria menos eficiente 
 	
 Harvard:
-	Vantagens:
-	Desvantagens:
+	Vantagens: Barramentos separados, se traduzem numa memoria mais eficiente.
+	Desvantagens: Mais complicada.
+	
 	
 5- 0X8051ABCD
 a) Little-endian:
