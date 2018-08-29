@@ -1,21 +1,35 @@
 1- 
-	O barramento de dados È utilizado para transmitir dados de um local para outro, entre as unidaes do sistema. J· o barramento de endereÁo È o respons·vel por definir a origem e o destino do sinal transmitido num dos outros barramentos.
+	O barramento de dados √© utilizado para transmitir dados de um local para outro, entre as unidaes do sistema. J√° o barramento de endere√ßo √© o respons√°vel por definir a origem e o destino do sinal transmitido num dos outros barramentos.
 
 
 
 2- 
-	Memoria RAM permite a leitura e escrita de dados. Por ser uma memÛria vol·til ela perde os dados salvos assim que o sistema È desligado, portanto nela n„o se slavam programas que cuja perda possa ser catastrÛfica ao sistema. Ela È usada para armazenar dados ou programas que podem ser convenientemente recarregados para imediato processamento. 
-	J· a memoria ROM permite acesso somente ‡ leitura dos dados apÛs serem escritos. Por ser uma memÛria n„o-vol·til, È na ROM onde se colocam os programas de controle do sistema, essenciais ao funcionamaneto do sistema, tendo em vista que elas nao se perdem caso o sistema seja desligado.
+	Memoria RAM permite a leitura e escrita de dados. Por ser uma mem√≥ria vol√°til ela perde os dados salvos assim que o sistema √© desligado, portanto nela n√£o se slavam programas que cuja perda possa ser catastr√≥fica ao sistema. Ela √© usada para armazenar dados ou programas que podem ser convenientemente recarregados para imediato processamento. 
+	J√° a memoria ROM permite acesso somente √† leitura dos dados ap√≥s serem escritos. Por ser uma mem√≥ria n√£o-vol√°til, √© na ROM onde se colocam os programas de controle do sistema, essenciais ao funcionamaneto do sistema, tendo em vista que elas nao se perdem caso o sistema seja desligado.
 
 
 
-3- a)A vari·vel i È armazenada na memoria RAM uma vez que ela n„o È essencial para o sistema. OU seja, se o sistema for desligado, basta colocar outro valor e o sistema voltar· a funcionar. AlÈm disso, a vari·vel i permite a escrita e leitura de dados. 
+3- a)A vari√°vel i √© armazenada na memoria RAM uma vez que ela n√£o √© essencial para o sistema. OU seja, se o sistema for desligado, basta colocar outro valor e o sistema voltar√° a funcionar. Al√©m disso, a vari√°vel i permite a escrita e leitura de dados. 
 
 
-b) O programa tambÈm est· na memoria RAM, pois tambem pode ser editado a qualquer momento e modificado. Ou seja, permite escrita e leitura de dados.
+b) O programa tamb√©m est√° na memoria RAM, pois tambem pode ser editado a qualquer momento e modificado. Ou seja, permite escrita e leitura de dados.
 
 
-4- 
+4- Von Neumann:
+	Vantagens:
+	Desavntagens:
+	
+Harvard:
+	Vantagens:
+	Desvantagens:
+	
+5- 0X8051ABCD
+a) Little-endian:
+
+b) Big-endian:
+
+6- 
+
 	
 
 
