@@ -26,10 +26,18 @@ Harvard:
 	
 5- 0X8051ABCD
 a) Little-endian:
+0x0200 - CD 
+0x0201 - AB 
+0x0202 - 51
+0x0203 - 80
 
 b) Big-endian:
+0x0200 - 80 
+0x0201 - 51 
+0x0202 - AB
+0x0203 - CD
 
-6- 
+6- Sabendo que o processador do MSP430 tem registradores de 16 bits, como ele soma duas variáveis de 32 bits?
 
 	
 
