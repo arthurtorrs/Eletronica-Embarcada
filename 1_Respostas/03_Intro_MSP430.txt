@@ -1,0 +1,41 @@
+1- a)	
+	char byte = 0x00;				//Exemplo apenas para testar
+    	char mask = 0x01;				//Mascara (00000001)
+    	byte|=mask;
+	
+
+b)	char byte = 0x00;				//Exemplo apenas para testar
+    	char mask = 0x03;				//Mascara (00000011)
+    	byte|=mask;
+	for(i = 7; 0 <= i; i --)
+       		printf("%d", (byte >> i) & 0x01);
+
+c)	char byte = 0xFF; 				//Exemplo apenas para testar
+    	char mask = 0xFB;				//Mascara (11111011)
+   	byte&=mask;
+	for(i = 7; 0 <= i; i --)
+       		printf("%d", (byte >> i) & 0x01);
+
+d)	char byte = 0xFF; 				//Exemplo apenas para testar
+    	char mask = 0xF3;				//Mascara (11110011)
+   	byte&=mask;
+	for(i = 7; 0 <= i; i --)
+       		printf("%d", (byte >> i) & 0x01);
+
+e)	char byte = 0xFF;				//Exemplo apenas para testar
+    	char mask = 0x01;				//Mascara (00000001)
+    	int i;
+    	byte^=mask;
+	for(i = 7; 0 <= i; i --)
+    	   	printf("%d", (byte >> i) & 0x01);
+       	
+
+f)	char byte = 0xAA;				//Exemplo apenas para testar
+    	char mask1 = 0x0F;				//Mascara (00001111)
+    	char mask2 = 0xF0;				//Mascara (11110000)
+    	int i;
+    	byte|=mask1;
+    	byte^=mask2;
+    	for(i = 7; 0 <= i; i --)
+                printf("%d", (byte >> i) & 0x01);
+       	
