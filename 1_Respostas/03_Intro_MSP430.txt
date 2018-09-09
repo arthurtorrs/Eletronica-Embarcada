@@ -2,7 +2,8 @@
 	char byte = 0x00;				//Exemplo apenas para testar
     	char mask = 0x01;				//Mascara (00000001)
     	byte|=mask;
-	
+	for(i = 7; 0 <= i; i --)
+       		printf("%d", (byte >> i) & 0x01);
 
 b)	char byte = 0x00;				//Exemplo apenas para testar
     	char mask = 0x03;				//Mascara (00000011)
@@ -39,3 +40,5 @@ f)	char byte = 0xAA;				//Exemplo apenas para testar
     	for(i = 7; 0 <= i; i --)
                 printf("%d", (byte >> i) & 0x01);
        	
+
+2- 
