@@ -1,0 +1,158 @@
+^^^^^^^^DIVISAO POR INTEIROS (em c)^^^^^^^^^^^^^^^^
+
+unsigned int Divisao_uns (unsigned int a, unsigned int b)
+{	unsigned int c=0;
+	if(b>0)
+	{
+	while (b<=a)
+		{
+		a-=b;
+		c++;
+		}
+	}
+	return c;
+
+}							(lista06_07)
+
+^^^^^^^^DIVISAO POR INTEIROS (em assembly)^^^^^^^^^^^^^^^
+
+Divisao_uns:	
+	push R4;	//R4:c
+	clr R4;		//c=0
+	tst R14
+	jz Divisao_uns_else
+
+Divisao_uns_while:	
+	cmp R14, R15
+	jl Divisao_uns_else
+	sub R14, R15
+	inc R4
+	jmp Divisao_uns_while
+
+
+Divisao_uns_else:
+	mov R4, R15
+	pop R4
+	ret	
+
+							(lista06_07)
+
+^^^^^^^^^^^^DIVISAO POR INTEIRO COM SINAL (em c)^^^^^^^^^^^^^^^
+
+int Divisao(int a, int b)
+{
+	int sinal=0, c;
+	if(a<0)
+	{
+		a=-a;
+		sinal++;
+	}
+	if(b<0)
+	{
+		b=-b;
+		sinal++;
+	}
+	
+	c = Divisao_uns(a,b)
+	if(sinal==1)
+		c=-c;
+	return c;
+}
+
+							(lista06_07)
+
+^^^^^^^^^^^^DIVISAO POR INTEIRO COM SINAL (em assembly)^^^^^^^^^^^^^^^
+
+
+Divisao:
+	push R4; sinal
+	push R5; c
+	clr R4; sinal=0
+Divisao_a:
+	cmp #0, R15
+	jge Divisao_b
+	inv R15
+	inc R15; a=-a
+	inc R4; sinal++
+Divisao_b:
+	cmp #0, R14
+	jge Divisao_c
+	inv R14
+	inc R14 ;b=-b
+	inc R4 ;sinal++
+Divisao_c:
+	call Divisao_uns
+	mov R15,R5
+	cmp #1,R4
+	jne Divisao_end
+	inv R5
+	inc R5
+Divisao_end:
+	mov R5, R15
+	pop R5
+	pop R4
+	ret
+							(lista06_07)
+ 
+^^^^^^^^^^^^^^^^^DESCOBRIR SE O NUMERO É PRIMO (em c)^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+int Primalidade (unsigned int x)
+{
+	unsigned int d;
+	if(x<2) return 0;
+	if((x&1)==0) return 0;	
+	d=x/2;
+	
+	while(d>2)
+	{
+		if((x%d)==0) return 0;
+		d--;
+	}
+	return 1;
+}
+
+
+^^^^^^^^^^^^^^^^^DESCOBRIR SE O NUMERO É PRIMO (em assembly)^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Primalidade:
+	push R4 	;d
+	cmp #2, R15
+	jge Teste_par
+Prim_zero:	
+	pop R4
+	clr R15
+	ret
+Teste_par:
+	mov R15, R14
+	and #1, R14
+	cmp #0, R14
+	jeq Prim_zero
+Teste_impar:
+	mov R15, R4
+	rra R4 		;d=x/2
+Prim_while:
+	cmp #2, R4
+	jeq Prim_end
+	push R15
+	mov R4, R14
+	call Resto_uns
+	mov R15, R14
+	pop R15
+	cmp #0, R14
+	jeq Prim_zero
+	dec R4
+	jmp Prim_while
+
+Prim_end:
+	pop R4
+	mov #1,R15
+	ret
+
+
+
+
+
+
+
