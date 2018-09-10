@@ -1,0 +1,48 @@
+1 - a)	mov.w R4, R11
+	add.w R11, R4 ;h*2
+	add.w R11, R4 ;h*3
+	add.w R11, R4 ;h*4
+	add.w R11, R4 ;h*5
+
+b)	mov.w R5, R12
+	add.w R12, R5
+	add.w R12, R5
+	add.w R12, R5
+	add.w R12, R5
+	add.w R12, R5
+
+d)	mov.w 2(R9), R11
+	mov.w 0(R9), R12
+	add.w R11, 2(R9)
+	add.w R11, 2(R9)
+	add.w R11, 2(R9)
+	add.w R11, 2(R9)
+	add.w R11, 2(R9)
+	add.w R12, 0(R9)
+	add.w R12, 0(R9)
+	add.w R12, 0(R9)
+	add.w R12, 0(R9)
+	add.w 0(R9), 2(R9)
+	mov.w 2(R9), 4(R9)
+
+e)	mov.w R4, R11
+	mov.w R6, R12
+	add.w R11, R4
+	add.w R11, R4
+	add.w R12, R6
+	add.w R12, R6
+	add.w R12, R6
+	add.w R12, R6
+	sub.w R6, R4
+	mov.w R4, 6(R9)
+
+f)	add.w R6, R6
+	sub.w R6, R4
+	mov.w R4, R11
+	add.w R11, R4	
+	add.w R11, R4
+	add.w R11, R4
+	add.w R11, R4
+	add.w R11, R4
+	mov.w R4,10(R9)
+	
