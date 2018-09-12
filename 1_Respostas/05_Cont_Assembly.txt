@@ -1,0 +1,94 @@
+1-a)	mov 01, R11	;define a mascara: 00000001
+	or R11, R5      ;seta somente o bit menos significativo (de acordo com a mascara)
+
+b)	mov 03, R11	;define a mascara: 00000011
+	or R11, R6	;seta os bits conforme a mascara
+
+c)	mov FB, R11	;define a mascara: 11111011
+	and R11, R7	;zera o bit conforme a mascara
+
+d)	mov F3, R11	;define a mascara: 11110011
+	and R11, R8	;zera o bit conforme a mascara
+
+e)	mov 01, R11	;define a mascara: 00000001
+	xor R11, R9	;inverte os bits conforme a mascara
+
+f)	mov 0F, R11	;define a mascara1: 00001111
+	mov F0, R12	;define a mascara2: 11110000
+	xor R12, R10	;inverte o nibble + significativo conforme a mascara2
+	or R11, R10	;seta o nibble - significativo conforme a mascara1
+
+2-	
+	Compara_ij:
+		cmp R8, R7		;compara i com j
+		jge i_maior_que_j	;se i for maior que j, pula pra instruçao
+	i_menor_igual_a_j:
+		sub #10, R5
+		sub R6, R5
+		mov R5, R4		;realiza a operacao f=g-h-10
+		jmp final
+	i_maior_que_j:
+		add R5, R6
+		add #10, R6
+		mov R6, R4		;realiza a operacao f=g+h+10
+		jmp final
+	final:
+		pop r4
+		ret
+
+3- 	while(save[i]!=k) i++;		 
+	
+		mov R7, R11 		;guarda o valor desejado de i em R11
+		clr R7
+	while:
+		cmp R11, R7		;compara i com o valor desejado
+		add #1, R7		;incrementa i
+		jne while		;se R11 e R7 forem diferentes, volta pro while e continua o loop
+		ret
+
+4-	for(i=0; i<100; i++) A[i] = i*2;	f: R4 g: R5 h: R6 i: R7 j: R8 k: R9
+		
+		clr R7
+	loop:
+		cmp R7, #100		;comparar o valor do contador com 100
+		jge final		;se o contador for >=100, pula pro fim
+		mov R7, R11		
+		add R11, R11		;i*2
+		mov R11, R11(R9)	;move o resultado da operação para A[i]
+		inc R7			;i++
+		jmp loop		;volta pro loop
+	final:
+		ret		
+
+5- 	for(i=99; i>=0; i--) A[i] = i*2		f: R4 g: R5 h: R6 i: R7 j: R8 k: R9
+
+		mov #99, R7
+	loop:
+		cmp R7, #0		;comparar o valor do contador com 100
+		jl final		;se o contador for <0, pula pro fim
+		mov R7, R11		
+		add R11, R11		;i*2
+		mov R11, R11(R9)	;move o resultado da operação para A[i]
+		dec R7			;i--
+		jmp loop		;volta pro loop
+	final:
+		ret		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
