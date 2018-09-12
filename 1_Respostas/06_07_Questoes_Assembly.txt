@@ -1,0 +1,69 @@
+1-
+
+2-
+
+3-	Divisao_uns:	
+		push R4;	
+		clr R4;		
+		tst R14
+		jz Divisao_uns_else
+	Divisao_uns_while:	
+		cmp R14, R15
+		jl Divisao_uns_else
+		sub R14, R15
+		inc R4
+		jmp Divisao_uns_while
+	Divisao_uns_else:
+		mov R4, R15
+		pop R15
+		ret
+
+4-
+
+5 - a)int Primalidade (unsigned int x)
+	{
+	unsigned int d;
+	if(x<2) return 0;
+	if((x&1)==0) return 0;	
+	d=x/2;
+	while(d>2)
+		{
+		if((x%d)==0) return 0;
+		d--;
+		}
+	return 1;
+	}
+
+b)
+	Primalidade:
+		push R4 	;d
+		cmp #2, R15
+		jge Teste_par
+	Prim_zero:	
+		pop R4
+		clr R15
+		ret
+	Teste_par:
+		mov R15, R14
+		and #1, R14
+		cmp #0, R14
+		jeq Prim_zero
+	Teste_impar:
+		mov R15, R4
+		rra R4 		;d=x/2
+	Prim_while:
+		cmp #2, R4
+		jeq Prim_end
+		push R15
+		mov R4, R14
+		call Resto_uns
+		mov R15, R14
+		pop R15
+		cmp #0, R14
+		jeq Prim_zero
+		dec R4
+		jmp Prim_while
+	Prim_end:
+		pop R4
+		mov #1,R15
+		ret
