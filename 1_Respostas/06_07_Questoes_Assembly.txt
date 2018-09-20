@@ -1,24 +1,102 @@
-1-
+1- a)
 
-2-
+float Raiz_Quadrada(unsigned int S)
+{
+	float x = 1;
+	for (int i = 0; i < 50; i++)
+		x = (x + S / x) / 2;
+	return x;
+}
 
-3-	Divisao_uns:	
-		push R4;	
-		clr R4;		
-		tst R14
-		jz Divisao_uns_else
-	Divisao_uns_while:	
-		cmp R14, R15
-		jl Divisao_uns_else
-		sub R14, R15
-		inc R4
-		jmp Divisao_uns_while
-	Divisao_uns_else:
-		mov R4, R15
-		pop R15
-		ret
+b)sqrt:
+	mov.w #1, R14		; x = 1
+        mov.w #0, R13		; i = 0
+        mov.w R15,R12		; R12 = S
+for_sqrt:   
+	cmp #50, R13		; i < 50
+        jeq end_sqrt       	; Pular para o fim do loop
+        mov.w R12,R15		; R15 = S -> Pega sempre o valor de S e não alterá-lo a cada iteração
+        push R13            	; R13 na pilha
+        call #Div_unsigned	; R15 = R15 / R14 -> S/x
+        add R15, R14		; x = x+S/x
+        rra R14     		; R14 / 2
+        pop R13             	; Recupera R13
+        inc.w R13		; i++
+        jmp for_sqrt
+end_sqrt:   
+	mov.w R14,R15
+        ret
+
+2- a)
+
+int Potencia(int x, int N);
+{
+	if(N == 0) 
+		return 1;
+	int retn = x;
+		for(int i = 0; i < N-1; i++)
+	retn *= x;
+	return retn;
+}
+
+b)
+
+Potencia:
+	cmp #0, R14		; N == 0
+        jeq Potencia_1
+        mov.w #0, R12		; i = 0
+        dec.w R14		; N--
+        mov.w R15, R13          ; R13 = X
+loop_potencia:
+	cmp R14, R12		; i < N-1
+        jeq Fim_potencia	; Pular se i == N-1
+        push R14
+        push R12
+        push R13
+        mov.w R13, R14		; R14 = x
+        call #Mult_unsigned	; R15 = R15*x
+        pop R13
+        pop R12
+        pop R14
+        inc.w R12	        ; i++
+        jmp loop_potencia
+Potencia_1:
+	mov.w #1, R15
+Fim_potencia:
+	ret
+
+
+
+3-	
+Div_unsigned:
+	clr R13;
+for_div:
+	cmp R14,R15
+	jl End_for_div
+	sub R14,R15
+	inc R13
+	jmp for_div
+End_for_div:
+	mov R13,R15
+	ret
 
 4-
+Divisao_uns:	
+	push R4;	
+	clr R4;		
+	tst R14
+	jz Divisao_uns_else
+Divisao_uns_while:	
+	cmp R14, R15
+	jl Divisao_uns_else
+	sub R14, R15
+	inc R4
+	jmp Divisao_uns_while
+Divisao_uns_else:
+	mov R4, R15
+	pop R15
+	ret
+
 
 5 - a)int Primalidade (unsigned int x)
 	{
@@ -112,7 +190,7 @@ Vetor_Dec:
 	dec R13			;R13=N-1	 
 Vetor_Dec_For:
 	cmp R13, R4		;R4>R13 ?	
-	jge Vetor_Dec_End	; Se sim pula pra fun�ao Vetor_Dec_End, senao segue o baile
+	jge Vetor_Dec_End	; Se sim pula pra funçao Vetor_Dec_End, senao segue o baile
 	cmp 2(R15), 0(R15)
 	jge Vetor_Dec_Inc
 	pop R4
