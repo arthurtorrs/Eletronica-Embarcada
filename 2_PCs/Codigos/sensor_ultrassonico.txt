@@ -1,0 +1,38 @@
+#define echoPin 3
+#define trigPin 2
+long mm, cm, aux,tempo;
+int perto = 5;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  pinMode(perto, OUTPUT);
+
+}
+
+void loop()
+{
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2);       
+  digitalWrite(trigPin, HIGH); 
+  delayMicroseconds(10);       
+  digitalWrite(trigPin, LOW); 
+
+  tempo = pulseIn(echoPin, HIGH);  
+  aux=(tempo*34)/2;
+  cm=(aux/100) * (0.10);
+  Serial.print(cm);
+  Serial.print(" cm");
+  Serial.println();
+  delay(100);
+
+  if (cm<15){
+    digitalWrite(perto, HIGH);
+  }
+  else{
+    digitalWrite(perto, LOW);
+  }
+  
+}

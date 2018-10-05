@@ -1,0 +1,25 @@
+ #include <Servo.h>
+
+Servo myservo;
+int pos = 0;
+const int buttonPin = PUSH2;
+int buttonState = 0;
+
+void setup()
+{
+  myservo.attach(9);
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop()
+{
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH) {
+    { 
+      myservo.write(0);   
+    }
+  }
+  else {
+    myservo.write(60);
+  }
+}
