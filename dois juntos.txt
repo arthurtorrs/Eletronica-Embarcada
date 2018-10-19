@@ -1,0 +1,53 @@
+#include <Servo.h>
+#define echoPin 3
+#define trigPin 2
+long mm, cm, aux,tempo;
+
+Servo myservo;
+int pos = 0;
+const int buttonPin = PUSH2;
+int buttonState = 0;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  myservo.attach(9);
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop()
+{
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2);       
+  digitalWrite(trigPin, HIGH); 
+  delayMicroseconds(10);       
+  digitalWrite(trigPin, LOW); 
+
+  tempo = pulseIn(echoPin, HIGH);  
+  aux=(tempo*34)/2;
+  cm=(aux/100) * (0.10);
+  Serial.print(cm);
+  Serial.print(" cm");
+  Serial.println();
+  delay(100);
+   
+  buttonState = digitalRead(buttonPin);
+  if (cm<15) {
+    { 
+      myservo.write(60);
+      Serial.print(cm);
+      Serial.print(" cm");
+      Serial.println();
+      delay(100);
+    }
+  }
+  else {
+    myservo.write(0);
+    Serial.print(cm);
+    Serial.print(" cm");
+    Serial.println();
+    delay(100);
+    }
+}
