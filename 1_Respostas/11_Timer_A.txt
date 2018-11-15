@@ -1,0 +1,144 @@
+1 -
+
+void Atraso(volatile unsigned int x)
+{
+    TA0CCR0 = 1000-1; 		//Contando de 0-999, SMCLK 1MHz -> 1000*1us = 1ms
+	
+    // Selecionando SMCLK como entrada para o timer com TASSEL_2
+    // Dividindo o clock de entrada por 1 com ID_0 e acionando modo UP com MC_1
+    
+    TA0CTL = TASSEL_2 + ID_0 + MC_1;
+    while(x > 0)
+    {
+        while((TA0CTL & TAIFG)==0);
+        x--;
+        TA0CTL &= ~TAIFG;
+    }
+    TA0CTL |= TACLR; 		//Resetando e parando o TimerA
+}
+
+
+5 - 
+
+void pisca(unsigned int freq, unsigned int deciHz)
+{
+	int T;
+	deciHz == 1 ? T=1000/f : T=10000/f;
+	T = T/2;
+	P1OUT |= LEDS;
+	atraso(T);
+	P1OUT &= ~LEDS;
+	atraso(T);
+}
+
+
+6 -
+
+void Atraso(volatile unsigned int x)
+{
+    TA0CCR0 = 1000-1; 		//Contando de 0-999, SMCLK 1MHz -> 1000*1us = 1ms
+    
+    // Selecionando SMCLK como entrada para o timer com TASSEL_2
+    // Dividindo o clock de entrada por 1 com ID_0 e acionando modo UP com MC_1
+    
+    TA0CTL = TASSEL_2 + ID_0 + MC_1 + TAIE;
+}
+
+interrupt(TIMER0_A1_VECTOR) TA0_ISR(void)
+{
+	x--;
+	if(x == 0)
+		P1OUT ^= LED;
+	TA0CTL &= ~TAIFG;
+}
+
+7 - 
+
+#define SAIDASERIAL P2OUT
+#define ENTRADAPAR P1IN
+
+void Atraso_ms(volatile unsigned int ms); 		//Função para delay com timer.
+
+void paralelo_para_serial(void)
+{
+	char seq[] = {BIT0, BIT1, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7};	
+	SAIDASERIAL |= BIT0;
+	for(int i = 0; i < 8; i++)
+	{
+		if((ENTRADAPAR & seq[i]) == 1)
+			SAIDASERIAL |= BIT0;
+		else
+			SAIDASERIAL &= ~BIT0;
+		Atraso_ms(1);
+	}
+	SAIDASERIAL &= ~BIT0;
+}
+
+void Atraso_ms(volatile unsigned int ms)
+{
+	TACCR0 = 1000-1;
+	TACTL = TACLR;
+	TACTL = TASSEL_2 + ID_0 + MC_1;
+	while(ms--)
+	{
+		while((TACTL&TAIFG)==0);
+		TACTL &= ~TAIFG;
+	}
+	TACTL = MC_0;
+}
+
+
+8 - 
+
+#define SAIDAPAR P1OUT
+#define ENTRADASER P2IN
+
+void Atraso_ms(volatile unsigned int ms); 		//Função para delay com timer.
+
+void serial_para_paralelo(void)
+{
+	char seq[] = {BIT0, BIT1, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7};
+	
+	while((ENTRADASER & BIT0) == 0); 		// Aguarda bit em nível alto para iniciar transmissão.
+	Atraso_ms(1);
+	for(int i = 0; i < 8; i++)
+	{
+		if((ENTRADASER & seq[i]) == 1)
+			SAIDAPAR |= seq[i];
+		else
+			SAIDAPAR &= ~seq[i];
+		Atraso_ms(1);
+	}
+	while((ENTRADASER & BIT0) == 1); 		// Aguarda bit em nível baixo	
+}
+
+void Atraso_ms(volatile unsigned int ms)
+{
+	TACCR0 = 1000-1;
+	TACTL = TACLR;
+	TACTL = TASSEL_2 + ID_0 + MC_1;
+	while(ms--)
+	{
+		while((TACTL&TAIFG)==0);
+		TACTL &= ~TAIFG;
+	}
+	TACTL = MC_0;
+}
+
+
+9 - 
+
+void ConfigPWM(volatile unsigned int freqs, volatile unsigned char ciclo_de_trabalho)
+{
+	unsigned int T = 500000/f; //T em us.
+	
+	//Carrega o período da onda em us para contagem no Timer.
+	TACCR0 = T-1;
+	
+	//Calcula ciclo de trabalho baseado na entrada.
+	TACCR1 = (_ciclo_de_trabalho*T/100)-1;
+	TACCTL1 = OUTMOD_7; // Modo reset/set para saída da comparação.
+    	
+	// Entrada de clock é SMCLK dividido por 2 em modo UP.
+    	TACTL = TASSEL_2 + ID_1 + MC_1;
+}
