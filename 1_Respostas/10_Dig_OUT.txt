@@ -167,7 +167,6 @@ void Atraso_ms(volatile unsigned int ms); //Função para delay com timer.
 
 void SeqTeste()
 {
-	//Supondo cátodo comum ligado aos BITS 0 e 1 da porta 2.
 	for(int i = 0; i <= 9; i++)
 	{
 		DISPLAYOUT |= DISPLAY1 + ~DISPLAY2;
