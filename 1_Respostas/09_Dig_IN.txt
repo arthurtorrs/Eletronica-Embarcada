@@ -12,7 +12,7 @@ void espera_ms(int tempo);
 
 int main(void)
 {
-	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
+	WDTCTL = WDTPW | WDTHOLD;			// Para o watchdog timer
 	P1DIR |= LED;
 	P1OUT &= ~LED;
 	P1DIR &= ~BTN;
@@ -52,6 +52,7 @@ void espera_ms(int tempo)
 }
 
 
+
 2 -
 
 #include <msp430.h>
@@ -79,10 +80,10 @@ void main(void)
     int q_press, num;
     WDTCTL = WDTPW | WDTHOLD;
     P1DIR |= LEDS;
-    P1DIR &= ~(ROW1 + ROW2 + ROW3); 		// entradas inicialmente
-    P1DIR |= (COL1 + COL2 + COL3); 		// saidas inicialmente
+    P1DIR &= ~(ROW1 + ROW2 + ROW3); 		// entradas
+    P1DIR |= (COL1 + COL2 + COL3); 		// saidas
     P1REN |= (ROW1 + ROW2 + ROW3); 		// ativa resistores nas entradas
-    P1OUT |= (ROW1 + ROW2 + ROW3); 		// pull-up
+    P1OUT |= (ROW1 + ROW2 + ROW3); 		// resistor de pull-up
 
     while(1)
     {
@@ -91,11 +92,11 @@ void main(void)
 
         // Linhas são entradas, Colunas são saídas
         P1DIR |= LEDS;
-        P1DIR &= ~(ROW1 + ROW2 + ROW3); 	// entradas inicialmente
-        P1DIR |= (COL1 + COL2 + COL3); 		// saidas inicialmente
+        P1DIR &= ~(ROW1 + ROW2 + ROW3); 	// entradas
+        P1DIR |= (COL1 + COL2 + COL3); 		// saidas
 
         P1REN |= (ROW1 + ROW2 + ROW3); 		// ativa resistores nas entradas
-        P1OUT |= (ROW1 + ROW2 + ROW3); 		// ativa-os como pull-up
+        P1OUT |= (ROW1 + ROW2 + ROW3); 		// resistor de pull-up
         P1OUT &= ~(COL1 + COL2 + COL3);
 
         for (i = 1000; i <= 10000; i*= 10)
@@ -103,11 +104,11 @@ void main(void)
                 for (j = 0; j < 3; j++)
                     coord[i][j] = 1; 		// soma 1 a toda a coluna que foi apertada
 
-        // ROWs são saídas, COLs são entradas
+        // Linhas são saídas, Colunass são entradas
         P1DIR |= (ROW1 + ROW2 + ROW3); 		// saídas
         P1DIR &= ~(COL1 + COL2 + COL3); 	// entradas
         P1REN |= (COL1 + COL2 + COL3); 		// ativa resistores nas entradas
-        P1OUT |= (COL1 + COL2 + COL3); 		// ativa-os como pull-up
+        P1OUT |= (COL1 + COL2 + COL3); 		// resistor de pull-up
         P1OUT &= ~(ROW1 + ROW2 + ROW3);
 
         for (i = 100000; i <= 10000000; i*= 10)

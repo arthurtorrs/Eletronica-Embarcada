@@ -1,0 +1,22 @@
+1 - 
+Código:
+void ConfigPWM(volatile unsigned int freqs, volatile unsigned char ciclo_de_trabalho)
+{
+    unsigned int T = 500000/f; 			//T em us.
+    TACCR0 = T-1;				//Carrega o período da onda em us para contagem no Timer.
+    TACCR1 = (_ciclo_de_trabalho*T/100)-1;	//Calcula ciclo de trabalho baseado na entrada.
+    TACCTL1 = OUTMOD_7; 			// Modo reset/set para saída da comparação.
+    TACTL = TASSEL_2 + ID_1 + MC_1;		//Entrada de clock é SMCLK dividido por 2 em modo UP.
+}
+
+a) ConfigPWM(100,25);
+
+b) ConfigPWM(100,50);
+
+c) ConfigPWM(100,75);
+
+2 -
+
+3 - 
+
+4 -

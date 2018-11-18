@@ -1,0 +1,112 @@
+1- #include <msp430g2553.h>
+#define LED1 BIT0
+#define LED2 BIT6
+#define LEDS (LED1|LED2)
+#define BTN  BIT3
+
+void atraso(volatile unsigned int i)
+{
+	while((i--)>0);
+}
+
+int main(void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+	P1OUT |= LEDS;
+	P1DIR |= LEDS;
+	while(1)
+	{
+		atraso(0xffff);
+		P1OUT ^= LEDS;                 //Inverte os leds pra ficarem piscando
+	}
+	return 0;
+}
+
+
+
+2- 
+
+#include <msp430g2553.h>
+#define LEDS (BIT0|BIT6)
+
+void atraso(volatile unsigned int N)
+{
+	while((N--)>0);
+}
+
+int main(void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+	P1DIR |= LEDS;
+	P1OUT &= ~LEDS;
+	while(1)
+	{
+		P1OUT &=~LEDS;          	//Apaga os leds
+		atraso(30000);			//Tempo de atraso
+		P1OUT |= LEDS;			//Acende os leds
+		atraso(60000);			//Tempo de atraso (x2)
+		
+	}
+	return 0;
+}
+
+
+
+3- 
+
+#include <msp430g2553.h>
+#define LEDS (BIT0|BIT6)
+#define BTN BIT3
+
+int main(void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+	P1OUT |= LEDS;				
+	P1DIR |= LEDS;
+	P1DIR &= ~BTN;
+	P1REN |= BTN;				//Resistor de pull-up
+	P1OUT |= BTN;				//Resistor de pull-up
+	while(1)
+	{
+		while (P1IN&BTN)>0);
+			P1OUT |= LEDS;
+		while (P1IN&BTN)==0);
+			P1OUT &=~LEDS;
+	}
+	return 0;
+}
+
+
+- 
+
+#include <msp430g2553.h>
+#define LEDS (BIT0|BIT6)
+#define BTN BIT3
+
+void atraso2(volatile unsigned int N, char btn)
+{
+	while((N>0)&&((P1IN&btn)==0)
+		n--;
+}
+
+int main(void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+	P1OUT |= LEDS;				
+	P1DIR |= LEDS;
+	P1DIR &= ~BTN;
+	P1REN |= BTN;				//Resistor de pull-up
+	P1OUT |= BTN;				//Resistor de pull-up
+	while(1)
+	{
+		while (P1IN&BTN)>0)
+			P1OUT |= LEDS;
+		while (P1IN&BTN)==0)
+		{
+			atraso2(0xFFFF, BTN).
+			P1OUT ^=LEDS;
+		}
+		P1OUT&=~LEDS;
+	}
+	return 0;
+}
