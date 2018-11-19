@@ -1,0 +1,113 @@
+#include <msp430.h>
+
+#define LED BIT6
+
+int miliseconds;
+int distance;
+long sensor;
+
+void delay()
+{
+    P1OUT ^= BIT0;
+    volatile unsigned long i;
+    i = 29999;
+    do (i--);
+    while (i != 0);
+}
+
+int main(void)
+{
+  BCSCTL1 = CALBC1_1MHZ;
+  DCOCTL = CALDCO_1MHZ;                     // Clock de 1Mhz
+  WDTCTL = WDTPW + WDTHOLD;                 // Desliga o WatchdogTimer
+
+  CCTL0 = CCIE;                             // Habilita a interrupção pelo CCR0
+  CCR0 = 1000;                          // 1ms em 1mhz
+  TACTL = TASSEL_2 + MC_1;                  // SMCLK, upmode
+
+  P1IFG  = 0x00;                        // Limpa todas as flagas de interrupçao
+  P1DIR |= 0x01;                            // P1.0 como saida do LED
+  P1OUT &= ~0x01;                           // Desliga o LED
+
+  _BIS_SR(GIE);                             // Habilita a interrupcao global
+
+  while (1)
+  {
+        P1IE &= ~0x01;                  // Desabilita a interrupcao
+        P1DIR |= 0x02;                  // Pino do TRIGGER (P1.1) como saida
+        P1OUT |= 0x02;                  // Gera o pulso
+        __delay_cycles(10);             // Delay de 10us
+        P1OUT &= ~0x02;                 // Para o pulso
+        P1DIR &= ~0x04;                 // Pino do ECHO (P1.2) como entrada
+        P1IFG = 0x00;                   // Limpa a flag, por precaução
+        P1IE |= 0x04;                   // Habilita a interrupção pelo pino do ECHO
+        P1IES &= ~0x04;                 // Define a borda de subida no pino ECHO
+        __delay_cycles(30000);          // Delay de 30ms (depois desse tempo, o ECHO acaba se nenhum objeto for detectado)
+        distance = sensor / 58;         // Converting o valor de ECHO para cm
+
+        P1DIR |= BIT6;                          // P1.6/TA0.1 É USADO PARA O PWM, QUE FUNCIONA COMO A SAÍDA -> servo 1
+        P1OUT = 0;                              // LIMPA AS SAIDAS P1
+        P1SEL |= BIT6;                          // P1.6 SELECIONA TA0.1
+
+        P1DIR &= ~BIT3;
+        P1REN |= BIT3;
+        P1OUT |= BIT3;
+
+        // COMO O CLOCK É DE 1MHz, E 1000ms EQUIVALEM A 1Hz, ENTAO SETANDO CCR0 PARA 20000
+        // TEMOS QUE 20000(1000000 / 1000 * 20) É UM PERIODO DE 20ms
+
+        TA0CCR0 = 20000-1;                         // PERIODO DO PWM TA0.1
+        TA1CCR0 = 20000-1;                         // PERIODO DO PWM TA1.1
+
+        // SETANDO 1500 É 1.5ms QUE É 0deg. (servo pos)
+        TA0CCR1 = 2000;                            // CCR1 PWM duty cycle
+        TA1CCR1 = 2000;                            // CCR1 PWM duty cycle
+
+        TA0CCTL1 = OUTMOD_7;                       // CCR1 reset/set
+        TA0CTL   = TASSEL_2 + MC_1;                // SMCLK, up mode
+        TA1CCTL1 = OUTMOD_7;                       // CCR1 reset/set
+        TA1CTL   = TASSEL_2 + MC_1;                // SMCLK, up mode
+
+    if (distance < 20 && distance != 0) {
+      P1OUT |= 0x01;            // Se a distancia for menor que 20cm e diferente de 0, o LED acende
+    }
+    else {
+      P1OUT &= ~0x01;           // Caso contrario, ele permanece desligado.
+    }
+
+    if((P1IN&BIT3)==0){
+        delay();
+        TA0CCR1 = 1000;
+        TA1CCR1 = 2000;
+
+        delay();
+        TA0CCR1 = 2000;
+        TA1CCR1 = 1000;
+    }
+  }
+}
+
+#pragma vector=PORT1_VECTOR
+__interrupt void Port_1(void)
+{
+  if (P1IFG & 0x04)             // Verifica se tem alguma interrupcao pendente
+  {
+    if (!(P1IES & 0x04))        // Verifica se tem uma borda de subida
+    {
+      TACTL |= TACLR;           // Se tem, limpa o timer A
+      miliseconds = 0;
+      P1IES |= 0x04;            // Borda de descida
+    }
+    else
+    {
+      sensor = (long)miliseconds * 1000 + (long)TAR;    // Calcula o comprimento de ECHO
+    }
+    P1IFG &= ~0x04;                         // Limpa a flag
+  }
+}
+
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void Timer_A (void)
+{
+  miliseconds++;
+}
